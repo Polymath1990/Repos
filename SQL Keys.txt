@@ -1,0 +1,54 @@
+(Not)Between >= 1 and 10.
+Where State (NOT) IN ('')
+Where State IN (SELECT DISTINCT State FROM Customers)
+Case When price > 10 then 'small'
+     When price > 20 then 'medium' else 'Bad' end as R	evenue
+Where NAME LIKE 'A%', '%ANE, '%CITY%', '_ayo'
+                 '[C-P]arsen', 'de[^z]%'
+* INTO
+CREATE VIEW vwCOVID-19 Dataset as SELECT 
+
+
+SELECT  OrganizationLevel, Gender, JobTitle 
+FROM HumanResources.Employee
+
+WITH EmployHier AS
+(
+--CEO
+SELECT OrganizationLevel, Gender, JobTitle, 
+  1 AS [Level] 
+  FROM HumanResources.Employee
+  WHERE OrganizationLevel = 1
+  UNION ALL 
+SELECT e.OrganizationLevel, e.Gender, e.JobTitle,
+  eh.[Level] + 1
+  FROM HumanResources.Employee e
+  INNER JOIN EmployHier eh ON eh.EmployeeKey = e.ParentEmployeekey
+  WHERE e.ParentEmployeekey IS NOT NULL
+  )
+  SELECT * FROM EmployHier
+
+
+SELECT *
+FROM Sales.SalesTerritory
+
+SELECT *
+FROM Sales.SalesOrderDetail
+
+SELECT 'Terry', ModifiedDate 
+FROM Sales.SalesTerritory
+UNION ALL 
+SELECT 'Order', ModifiedDate
+FROM Sales.SalesOrderDetail
+
+select CountryRegionCode,SalesYTD, SalesLastYear,
+SUM(SalesYTD) over (partition by CountryRegionCode) as Namey,
+SalesYTD/SUM(SalesYTD) over (partition by CountryRegionCode) * 100 as Vacpct
+FROM Sales.SalesTerritory
+order by SalesLastYear, SalesYTD
+
+select ROW_NUMBER() over (partition by Gender order by BirthDate) as RowNum
+, Gender, BirthDate
+FROM HumanResources.Employee
+where BirthDate is not null
+and DATEPART(MONTH, BirthDate) = 11
